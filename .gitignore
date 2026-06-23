@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual envs / uv
+.venv/
+.uv/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Pipeline outputs (generated artifacts should not be committed)
+/output/
+/cache/
+*.jsonl
+!data/**/*.jsonl
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

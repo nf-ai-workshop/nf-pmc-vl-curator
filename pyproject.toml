@@ -1,0 +1,41 @@
+[project]
+name = "nf-pmc-vl-curator"
+version = "0.1.0"
+description = "Educational example: a reproducible biomedical vision-language dataset curation pipeline for NF1/NF2 PMC Open Access articles."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "nf-pmc-vl-curator contributors" }]
+keywords = ["pubmed", "pmc", "open-access", "vision-language", "dataset", "curation", "neurofibromatosis"]
+dependencies = [
+    "pydantic>=2.6",
+    "click>=8.1",
+    "pyyaml>=6.0",
+    "requests>=2.28",
+]
+
+[project.scripts]
+nf-curator = "nf_pmc_vl_curator.cli:cli"
+
+[project.optional-dependencies]
+app = [
+    "streamlit>=1.30",
+]
+dev = [
+    "pytest>=8.0",
+    "streamlit>=1.30",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nf_pmc_vl_curator"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.uv]
+package = true
