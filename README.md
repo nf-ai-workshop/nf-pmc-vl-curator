@@ -82,6 +82,7 @@ provide, proxy/firewall notes, and the 2026 NCBI dataset-migration caveat.
 ```bash
 uv run nf-curator run        # run the pipeline (networked, or --dry-run / --xml for offline)
 uv run nf-curator doctor     # diagnose live connectivity incl. image download
+uv run nf-curator materialize  # package dataset.jsonl into an imagefolder (images/ + metadata.jsonl)
 uv run nf-curator app        # launch the interactive curation web app (see below)
 uv run nf-curator inspect    # summarise an exported dataset.jsonl
 uv run nf-curator extract    # parse one JATS XML file and list its figures
@@ -152,6 +153,7 @@ dermoscopy* is mostly editing the search query and the keyword YAML — see
 - [docs/architecture.md](docs/architecture.md) — how each agent module works
 - [docs/network_access.md](docs/network_access.md) — access info + how to test live image retrieval
 - [docs/curation_app.md](docs/curation_app.md) — the interactive human-in-the-loop curation app
+- [docs/building_image_dataset.md](docs/building_image_dataset.md) — turn `dataset.jsonl` into an imagefolder of actual images + annotations
 - [docs/data_schema.md](docs/data_schema.md) — the JSONL record schema
 - [docs/adapting.md](docs/adapting.md) — adapt to a new biomedical topic
 
@@ -166,6 +168,7 @@ src/nf_pmc_vl_curator/
   http_client.py   # rate-limited, retrying, dry-run-aware HTTP wrapper
   pipeline.py      # orchestrator (networked + offline entry points)
   curation.py      # human-in-the-loop layer (DecisionStore, persisted reviews)
+  materialize.py   # package dataset.jsonl into a HF imagefolder (images + metadata)
   app.py           # Streamlit curation web app (UI shell over curation.py)
   cli.py           # the nf-curator command-line interface
 data/sample/       # SYNTHETIC sample JATS XML (offline runs + tests)

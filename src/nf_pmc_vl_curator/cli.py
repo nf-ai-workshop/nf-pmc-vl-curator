@@ -219,6 +219,49 @@ def doctor(query, email, api_key, no_assets):
 
 
 @cli.command()
+@click.argument("dataset", required=False, default=Path("output/dataset.jsonl"),
+                type=click.Path(path_type=Path))
+@click.option("--output", "output_dir", type=click.Path(path_type=Path),
+              default=Path("dataset"), show_default=True,
+              help="Destination dataset directory.")
+@click.option("--accepted-only", is_flag=True,
+              help="Only include records ACCEPTED in the curation app.")
+@click.option("--image-format", type=click.Choice(["keep", "png", "jpg"]),
+              default="keep", show_default=True,
+              help="'keep' copies jpg/png and converts others to png.")
+@click.option("--image-root", type=click.Path(path_type=Path), default=Path("."),
+              show_default=True,
+              help="Base dir for relative local_image_path values in the dataset.")
+def materialize(dataset, output_dir, accepted_only, image_format, image_root):
+    """Build a HuggingFace imagefolder dataset (images/ + metadata.jsonl).
+
+    Reads a dataset.jsonl index and copies the actual figure images into a
+    self-contained folder, each paired with its caption + weak labels.
+    """
+    from .curation import load_dataset
+    from .materialize import materialize_dataset
+
+    if not Path(dataset).exists():
+        raise click.ClickException(f"dataset not found: {dataset}")
+    records = load_dataset(dataset)
+    stats = materialize_dataset(
+        records, output_dir, accepted_only=accepted_only,
+        image_format=image_format, image_root=image_root,
+    )
+
+    click.echo(click.style("\nMaterialized image dataset", bold=True))
+    click.echo(f"  images written     : {stats['images']}")
+    click.echo(f"  skipped (no image) : {stats['skipped_no_image']}")
+    click.echo(f"  missing on disk    : {stats['missing_on_disk']}")
+    if accepted_only:
+        click.echo(f"  skipped (unaccepted): {stats['skipped_not_accepted']}")
+    click.echo(f"\nDataset at {output_dir}/ (images/, metadata.jsonl, README.md)")
+    click.echo("Load it with:")
+    click.echo("  from datasets import load_dataset")
+    click.echo(f"  ds = load_dataset('imagefolder', data_dir='{output_dir}')")
+
+
+@cli.command()
 @click.argument("dataset", type=click.Path(exists=True, path_type=Path))
 def inspect(dataset: Path) -> None:
     """Print summary stats for an exported dataset.jsonl."""

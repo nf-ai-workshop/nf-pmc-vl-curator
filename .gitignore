@@ -18,6 +18,7 @@ htmlcov/
 # Pipeline outputs (generated artifacts should not be committed)
 /output/
 /cache/
+/dataset/
 *.jsonl
 !data/**/*.jsonl
 
