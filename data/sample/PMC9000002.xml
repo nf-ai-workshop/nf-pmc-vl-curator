@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SYNTHETIC sample article for testing/demonstration only.
+  Not a real publication. IDs in the PMC9000xxx range are fabricated.
+-->
+<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="case-report">
+  <front>
+    <journal-meta>
+      <journal-title-group>
+        <journal-title>Journal of Synthetic Neurocutaneous Disorders</journal-title>
+      </journal-title-group>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">90000002</article-id>
+      <article-id pub-id-type="pmc">9000002</article-id>
+      <article-id pub-id-type="doi">10.0000/synthetic.9000002</article-id>
+      <title-group>
+        <article-title>Bilateral vestibular schwannomas in neurofibromatosis type 2: a synthetic illustrative case</article-title>
+      </title-group>
+      <pub-date pub-type="epub">
+        <year>2022</year>
+      </pub-date>
+      <permissions>
+        <license license-type="open-access"
+                 xlink:href="https://creativecommons.org/licenses/by-nc/4.0/">
+          <license-p>Open access under the Creative Commons CC BY-NC license.</license-p>
+        </license>
+      </permissions>
+    </article-meta>
+  </front>
+  <body>
+    <sec>
+      <title>Case</title>
+      <fig id="fig1">
+        <label>Figure 1</label>
+        <caption>
+          <title>MRI of the cerebellopontine angles.</title>
+          <p>Gadolinium contrast-enhanced T1-weighted magnetic resonance imaging
+          demonstrating bilateral vestibular schwannoma, characteristic of
+          neurofibromatosis type 2 (NF2).</p>
+        </caption>
+        <graphic xlink:href="9000002_fig1.png"/>
+      </fig>
+      <fig id="fig2">
+        <label>Figure 2</label>
+        <caption>
+          <title>Skin finding.</title>
+          <p>Clinical photograph.</p>
+        </caption>
+        <graphic xlink:href="9000002_fig2.png"/>
+      </fig>
+    </sec>
+  </body>
+</article>

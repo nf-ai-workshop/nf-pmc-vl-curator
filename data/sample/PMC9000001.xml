@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SYNTHETIC sample article for testing/demonstration only.
+  Not a real publication. IDs in the PMC9000xxx range are fabricated.
+-->
+<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="case-report">
+  <front>
+    <journal-meta>
+      <journal-title-group>
+        <journal-title>Journal of Synthetic Neurocutaneous Disorders</journal-title>
+      </journal-title-group>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">90000001</article-id>
+      <article-id pub-id-type="pmc">9000001</article-id>
+      <article-id pub-id-type="doi">10.0000/synthetic.9000001</article-id>
+      <title-group>
+        <article-title>Imaging of plexiform neurofibroma in neurofibromatosis type 1: a synthetic case report</article-title>
+      </title-group>
+      <pub-date pub-type="epub">
+        <year>2021</year>
+      </pub-date>
+      <permissions>
+        <license license-type="open-access"
+                 xlink:href="https://creativecommons.org/licenses/by/4.0/">
+          <license-p>This is an open access article distributed under the terms of the
+          Creative Commons CC BY license.</license-p>
+        </license>
+      </permissions>
+    </article-meta>
+  </front>
+  <body>
+    <sec>
+      <title>Case</title>
+      <p>A patient with NF1 presented with a large mass.</p>
+      <fig id="fig1">
+        <label>Figure 1</label>
+        <caption>
+          <title>Axial MRI of the lesion.</title>
+          <p>Contrast-enhanced T1-weighted axial MRI showing a large plexiform
+          neurofibroma in the right paraspinal region of a patient with
+          neurofibromatosis type 1.</p>
+        </caption>
+        <graphic xlink:href="9000001_fig1.jpg"/>
+      </fig>
+      <fig id="fig2">
+        <label>Figure 2</label>
+        <caption>
+          <title>Histopathology.</title>
+          <p>Hematoxylin and eosin (H&amp;E) stained micrograph at 200x
+          magnification demonstrating features consistent with a malignant
+          peripheral nerve sheath tumor (MPNST).</p>
+        </caption>
+        <graphic xlink:href="9000001_fig2.jpg"/>
+      </fig>
+    </sec>
+  </body>
+</article>

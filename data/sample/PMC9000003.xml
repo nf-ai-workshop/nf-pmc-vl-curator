@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SYNTHETIC sample article for testing/demonstration only.
+  Not a real publication. IDs in the PMC9000xxx range are fabricated.
+
+  This article is deliberately OFF-TOPIC (not about NF1/NF2) and contains a
+  chart figure, to exercise the NOT_NF_RELEVANT and chart-type code paths.
+-->
+<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-title-group>
+        <journal-title>Journal of Synthetic Epidemiology</journal-title>
+      </journal-title-group>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">90000003</article-id>
+      <article-id pub-id-type="pmc">9000003</article-id>
+      <article-id pub-id-type="doi">10.0000/synthetic.9000003</article-id>
+      <title-group>
+        <article-title>Trends in seasonal allergy incidence: a synthetic cohort study</article-title>
+      </title-group>
+      <pub-date pub-type="epub">
+        <year>2020</year>
+      </pub-date>
+      <permissions>
+        <license license-type="open-access"
+                 xlink:href="https://creativecommons.org/publicdomain/zero/1.0/">
+          <license-p>Released under the Creative Commons CC0 public domain dedication.</license-p>
+        </license>
+      </permissions>
+    </article-meta>
+  </front>
+  <body>
+    <sec>
+      <title>Results</title>
+      <fig id="fig1">
+        <label>Figure 1</label>
+        <caption>
+          <title>Incidence over time.</title>
+          <p>Kaplan-Meier survival curve showing allergy-free probability across
+          the study cohort over a five-year follow-up period.</p>
+        </caption>
+        <graphic xlink:href="9000003_fig1.jpg"/>
+      </fig>
+    </sec>
+  </body>
+</article>
