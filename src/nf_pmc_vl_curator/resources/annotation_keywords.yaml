@@ -1,0 +1,127 @@
+# Keyword resources for the weak-annotation agent.
+#
+# This file is the single place to tune the heuristics. To adapt the pipeline
+# to a *different* biomedical topic, you mostly edit THIS file plus the search
+# query in your config -- the code does not hard-code any disease terms.
+#
+# Matching is case-insensitive, on word boundaries, against the figure caption
+# (and, for NF relevance, the article title as a fallback context signal).
+
+# --- NF relevance --------------------------------------------------------- #
+# Presence of nf1 terms -> NF1; nf2 terms -> NF2; both -> BOTH; neither -> NONE.
+nf_relevance:
+  nf1:
+    - nf1
+    - neurofibromatosis type 1
+    - neurofibromatosis type i
+    - von recklinghausen
+    - plexiform neurofibroma
+    - optic pathway glioma
+  nf2:
+    - nf2
+    - neurofibromatosis type 2
+    - neurofibromatosis type ii
+    - vestibular schwannoma
+    - bilateral schwannoma
+
+# --- Imaging modality ----------------------------------------------------- #
+# First modality with a match wins ordering is by specificity below.
+modality:
+  mri:
+    - mri
+    - magnetic resonance
+    - t1-weighted
+    - t2-weighted
+    - t1 weighted
+    - t2 weighted
+    - flair
+    - gadolinium
+    - contrast-enhanced
+  ct:
+    - ct scan
+    - computed tomography
+    - axial ct
+  ultrasound:
+    - ultrasound
+    - sonography
+    - sonographic
+    - doppler
+  xray:
+    - radiograph
+    - x-ray
+    - plain film
+  pet:
+    - pet/ct
+    - pet scan
+    - positron emission
+    - fdg
+  histology:
+    - histology
+    - histologic
+    - histopathology
+    - hematoxylin
+    - eosin
+    - h&e
+    - immunohistochemistry
+    - immunostaining
+    - micrograph
+    - magnification
+    - stained
+  clinical_photo:
+    - clinical photograph
+    - cutaneous
+    - skin lesion
+    - cafe-au-lait
+    - cafe au lait
+    - dermal
+    - photograph of
+  illustration:
+    - schematic
+    - diagram
+    - illustration
+    - cartoon
+  chart:
+    - kaplan-meier
+    - kaplan meier
+    - survival curve
+    - bar chart
+    - scatter plot
+    - flow chart
+    - flowchart
+    - graph showing
+
+# --- Modality -> figure-type grouping ------------------------------------- #
+# Used to roll fine-grained modalities up into a coarse figure category.
+figure_type_map:
+  mri: radiology
+  ct: radiology
+  ultrasound: radiology
+  xray: radiology
+  pet: radiology
+  histology: histopathology
+  clinical_photo: clinical_photo
+  illustration: diagram
+  chart: chart
+
+# --- Lesion / entity keywords -------------------------------------------- #
+# Free-form entities of interest. Matches are recorded on each record.
+entities:
+  - plexiform neurofibroma
+  - cutaneous neurofibroma
+  - dermal neurofibroma
+  - subcutaneous neurofibroma
+  - malignant peripheral nerve sheath tumor
+  - mpnst
+  - optic pathway glioma
+  - optic glioma
+  - vestibular schwannoma
+  - schwannoma
+  - meningioma
+  - ependymoma
+  - cafe-au-lait macule
+  - lisch nodule
+  - lisch nodules
+  - freckling
+  - scoliosis
+  - pseudarthrosis
+  - glioma
