@@ -1,0 +1,33 @@
+# Example configuration for nf-pmc-vl-curator.
+# Pass with:  nf-curator run --config config/default.yaml
+# Every field is optional; omitted fields fall back to the built-in defaults
+# defined in src/nf_pmc_vl_curator/config.py.
+
+ncbi:
+  tool: nf-pmc-vl-curator
+  email: you@example.com        # REQUIRED by NCBI etiquette; use a real address
+  api_key: null                 # optional; raises rate limit 3 -> 10 req/s
+  requests_per_second: 3.0
+  timeout_seconds: 30.0
+  max_retries: 3
+
+search:
+  # Topic query. Note "open access[filter]" keeps us inside the OA subset.
+  query: >-
+    (neurofibromatosis type 1[Title/Abstract] OR NF1[Title/Abstract]
+     OR neurofibromatosis type 2[Title/Abstract] OR NF2[Title/Abstract])
+    AND open access[filter]
+  retmax: 20
+  mindate: null                 # e.g. "2015"
+  maxdate: null                 # e.g. "2024"
+
+quality:
+  min_caption_length: 30
+  require_image_file: false     # set true to require a downloaded image asset
+  require_license: true
+  drop_not_nf_relevant: false   # set true to drop figures with no NF signal
+
+# keywords_path: defaults to the bundled resource; point elsewhere to retarget.
+output_dir: output
+cache_dir: cache
+dry_run: false
