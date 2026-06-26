@@ -75,9 +75,18 @@ def cli() -> None:
 @click.option("--api-key", help="NCBI API key (raises the rate limit).")
 @click.option("--assets/--no-assets", default=True,
               help="Download figure image assets (networked runs only).")
+@click.option("--classify-images", is_flag=True,
+              help="Classify modality from the image via Claude vision "
+                   "(needs ANTHROPIC_API_KEY; implies --assets).")
+@click.option("--vision-model", default=None,
+              help="Vision model id (default: claude-haiku-4-5).")
+@click.option("--anthropic-api-key", default=None,
+              help="Anthropic API key for --classify-images "
+                   "(else read from ANTHROPIC_API_KEY env).")
 @click.option("-v", "--verbose", is_flag=True, help="Verbose (DEBUG) logging.")
 def run(config_path, dry_run, xml_paths, query, retmax, output_dir, cache_dir,
-        email, api_key, assets, verbose):
+        email, api_key, assets, classify_images, vision_model, anthropic_api_key,
+        verbose):
     """Run the curation pipeline and export a JSONL dataset."""
     _setup_logging(verbose)
     config = load_config(config_path) if config_path else Config()
@@ -97,6 +106,25 @@ def run(config_path, dry_run, xml_paths, query, retmax, output_dir, cache_dir,
         config.ncbi.email = email
     if api_key:
         config.ncbi.api_key = api_key
+    if classify_images:
+        config.vision.classify_images = True
+        assets = True  # image classification needs the downloaded images
+    if vision_model:
+        config.vision.model = vision_model
+    if anthropic_api_key:
+        config.vision.api_key = anthropic_api_key
+
+    # Fail fast with a clear message if vision is on but no key is resolvable.
+    if config.vision.classify_images and not config.dry_run:
+        import os as _os
+
+        has_key = bool(config.vision.api_key) or bool(
+            _os.environ.get("ANTHROPIC_API_KEY") or _os.environ.get("ANTHROPIC_AUTH_TOKEN")
+        )
+        if not has_key:
+            raise click.ClickException(
+                "--classify-images needs an Anthropic API key. Set it with:\n"
+                "  export ANTHROPIC_API_KEY=sk-ant-...   (or pass --anthropic-api-key)")
 
     pipeline = Pipeline(config)
 

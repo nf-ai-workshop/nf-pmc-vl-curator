@@ -22,6 +22,9 @@ nf-curator = "nf_pmc_vl_curator.cli:cli"
 app = [
     "streamlit>=1.30",
 ]
+vision = [
+    "anthropic>=0.69",
+]
 dev = [
     "pytest>=8.0",
     "streamlit>=1.30",

@@ -21,6 +21,7 @@ from .oa_checker import OAAvailabilityAgent
 from .downloader import DownloadAgent
 from .extractor import FigureExtractionAgent
 from .annotator import AnnotationAgent
+from .image_modality import ImageModalityAgent
 from .quality import QualityAgent
 from .exporter import ExportAgent
 
@@ -30,6 +31,7 @@ __all__ = [
     "DownloadAgent",
     "FigureExtractionAgent",
     "AnnotationAgent",
+    "ImageModalityAgent",
     "QualityAgent",
     "ExportAgent",
 ]

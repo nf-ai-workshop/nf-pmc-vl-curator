@@ -36,6 +36,7 @@ SearchAgent ─▶ OAAvailabilityAgent ─▶ DownloadAgent ─▶ FigureExtract
 | 3 | [downloader.py](src/nf_pmc_vl_curator/agents/downloader.py) | Fetch article XML (`efetch`) + figure images (OA `.tar.gz`) |
 | 4 | [extractor.py](src/nf_pmc_vl_curator/agents/extractor.py) | Parse JATS XML into figure/caption pairs |
 | 5 | [annotator.py](src/nf_pmc_vl_curator/agents/annotator.py) | Weak labels: NF relevance, modality, figure type, entities |
+| 5b | [image_modality.py](src/nf_pmc_vl_curator/agents/image_modality.py) | *(optional)* classify modality from the **image** via Claude vision |
 | 6 | [quality.py](src/nf_pmc_vl_curator/agents/quality.py) | Quality flags + keep/drop policy |
 | 7 | [exporter.py](src/nf_pmc_vl_curator/agents/exporter.py) | Write JSONL + summary stats |
 
@@ -152,6 +153,7 @@ dermoscopy* is mostly editing the search query and the keyword YAML — see
 
 - [docs/architecture.md](docs/architecture.md) — how each agent module works
 - [docs/network_access.md](docs/network_access.md) — access info + how to test live image retrieval
+- [docs/image_classification.md](docs/image_classification.md) — classify modality from the image with Claude vision
 - [docs/curation_app.md](docs/curation_app.md) — the interactive human-in-the-loop curation app
 - [docs/building_image_dataset.md](docs/building_image_dataset.md) — turn `dataset.jsonl` into an imagefolder of actual images + annotations
 - [docs/data_schema.md](docs/data_schema.md) — the JSONL record schema

@@ -66,6 +66,7 @@ class QualityFlag(str, Enum):
     NOT_NF_RELEVANT = "not_nf_relevant"
     NO_MODALITY = "no_modality"
     DUPLICATE_CAPTION = "duplicate_caption"
+    MODALITY_DISAGREEMENT = "modality_disagreement"  # caption label != image label
 
 
 class ReviewStatus(str, Enum):
@@ -134,6 +135,22 @@ class Figure(BaseModel):
 # --------------------------------------------------------------------------- #
 # Annotation / quality models
 # --------------------------------------------------------------------------- #
+class ImageModalityResult(BaseModel):
+    """Image-derived modality label from a vision model (pixels, not caption).
+
+    This is the *stronger* modality signal: it looks at the figure itself, so it
+    resolves cases the caption-based annotator can't (MRI vs CT, real photo vs
+    illustration, multi-panel composites).
+    """
+
+    modality: Modality = Modality.UNKNOWN
+    figure_type: FigureType = FigureType.UNKNOWN
+    is_multipanel: bool = False
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    rationale: Optional[str] = None
+    model: Optional[str] = Field(default=None, description="Vision model id used.")
+
+
 class WeakAnnotations(BaseModel):
     """Heuristic (non-expert) labels derived from caption + article context.
 
@@ -155,6 +172,9 @@ class WeakAnnotations(BaseModel):
         default_factory=dict,
         description="Audit trail: which keywords triggered which label.",
     )
+    # Populated only when image classification is enabled; the higher-quality
+    # (pixel-based) counterpart to the caption-derived modality/figure_type above.
+    image_modality: Optional[ImageModalityResult] = None
 
 
 class QualityReport(BaseModel):

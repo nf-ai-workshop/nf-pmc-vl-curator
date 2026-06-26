@@ -43,6 +43,11 @@ human-readable summary.
       "nf_caption": ["nf1", "neurofibromatosis type 1"],
       "modality:mri": ["mri", "t1-weighted", "contrast-enhanced"],
       "entities": ["plexiform neurofibroma"]
+    },
+    "image_modality": {                      // null unless --classify-images (Claude vision)
+      "modality": "mri", "figure_type": "radiology",
+      "is_multipanel": false, "confidence": 0.9,
+      "rationale": "T1-weighted axial MRI", "model": "claude-haiku-4-5"
     }
   },
   "quality": {

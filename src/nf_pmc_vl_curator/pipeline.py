@@ -49,6 +49,18 @@ class Pipeline:
         self.quality = QualityAgent()
         self.exporter = ExportAgent()
 
+        # Optional pixel-based modality classifier (Claude vision). Only built
+        # when enabled and online; lazily talks to the anthropic SDK.
+        self.image_agent = None
+        if config.vision.classify_images and not config.dry_run:
+            from .agents import ImageModalityAgent
+
+            self.image_agent = ImageModalityAgent(
+                model=config.vision.model,
+                api_key=config.vision.api_key,
+                max_long_edge=config.vision.max_long_edge,
+            )
+
     # ------------------------------------------------------------------ #
     # Networked pipeline
     # ------------------------------------------------------------------ #
@@ -124,6 +136,14 @@ class Pipeline:
         out: list[FigureRecord] = []
         for fig in figures:
             annotations = self.annotator.annotate(fig, ref)
+            if self.image_agent is not None and fig.local_image_path:
+                try:
+                    annotations.image_modality = self.image_agent.classify(
+                        fig.local_image_path, caption=fig.caption
+                    )
+                except Exception as exc:  # vision is best-effort enrichment
+                    log.warning("image classification failed for %s: %s",
+                                fig.fig_id, exc)
             out.append(
                 FigureRecord(
                     record_id=FigureRecord.make_id(ref.pmcid, fig.fig_id),

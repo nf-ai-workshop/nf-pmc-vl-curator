@@ -73,6 +73,17 @@ class QualityAgent:
         if rec.annotations.modality == Modality.UNKNOWN:
             flags.append(QualityFlag.NO_MODALITY)
 
+        # Caption-derived vs image-derived modality conflict (advisory): a strong
+        # signal for the curation app to surface for human review.
+        img = rec.annotations.image_modality
+        if (
+            img is not None
+            and img.modality != Modality.UNKNOWN
+            and rec.annotations.modality != Modality.UNKNOWN
+            and img.modality != rec.annotations.modality
+        ):
+            flags.append(QualityFlag.MODALITY_DISAGREEMENT)
+
         return flags
 
     @staticmethod

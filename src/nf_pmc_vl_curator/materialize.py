@@ -76,15 +76,21 @@ def _emit_image(src: Path, dest_stem: Path, image_format: str) -> Path:
 def _row(rec: FigureRecord, file_name: str) -> dict:
     """Build one HF-imagefolder metadata row: image + language annotation."""
     a, an, lic = rec.article, rec.annotations, rec.license
+    img = an.image_modality
     row = {
         "file_name": file_name,                 # required by imagefolder loader
         "record_id": rec.record_id,
         "caption": rec.figure.caption,          # the language annotation
         "nf_relevance": an.nf_relevance.value,
         "nf_relevance_score": an.nf_relevance_score,
-        "modality": an.modality.value,
+        "modality": an.modality.value,          # caption-derived
         "figure_type": an.figure_type.value,
         "entities": an.entities,
+        # image-derived (vision) labels, when classification was enabled
+        "image_modality": img.modality.value if img else None,
+        "image_figure_type": img.figure_type.value if img else None,
+        "image_modality_confidence": img.confidence if img else None,
+        "is_multipanel": img.is_multipanel if img else None,
         "figure_label": rec.figure.label,
         "pmcid": a.pmcid,
         "pmid": a.pmid,

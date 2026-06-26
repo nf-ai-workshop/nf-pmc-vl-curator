@@ -61,12 +61,26 @@ class QualityConfig(BaseModel):
     drop_not_nf_relevant: bool = False
 
 
+class VisionConfig(BaseModel):
+    """Image-classification (Claude vision) settings for the ImageModalityAgent."""
+
+    classify_images: bool = False
+    model: str = "claude-haiku-4-5"  # cheap + ample for figure classification
+    max_long_edge: int = Field(
+        default=1568, description="Downscale images to this long edge to cap tokens."
+    )
+    api_key: Optional[str] = Field(
+        default=None, description="Anthropic API key (else uses ANTHROPIC_API_KEY env)."
+    )
+
+
 class Config(BaseModel):
     """Top-level pipeline configuration."""
 
     ncbi: NCBIConfig = Field(default_factory=NCBIConfig)
     search: SearchConfig = Field(default_factory=SearchConfig)
     quality: QualityConfig = Field(default_factory=QualityConfig)
+    vision: VisionConfig = Field(default_factory=VisionConfig)
 
     keywords_path: Path = DEFAULT_KEYWORDS_PATH
     output_dir: Path = Path("output")
