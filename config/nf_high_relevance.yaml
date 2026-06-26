@@ -1,0 +1,27 @@
+# High-NF-relevance curation config.
+#   nf-curator run --config config/nf_high_relevance.yaml --email you@inst.edu
+#
+# Key idea: target articles whose TITLE is about neurofibromatosis (high
+# precision), so figures are contextually NF-related, then DROP any figure the
+# weak annotator still can't tie to NF. This trades recall for relevance.
+
+ncbi:
+  email: you@example.com          # set yours (or pass --email)
+  requests_per_second: 3.0        # 10.0 if you set an api_key
+
+search:
+  # Title-targeted -> the article is centrally about NF, so every figure gets
+  # at least the 0.5 title-relevance signal, and imaging captions reach 0.9.
+  query: >-
+    (neurofibromatosis[Title] OR "neurofibromatosis type 1"[Title/Abstract]
+     OR "neurofibromatosis type 2"[Title/Abstract])
+    AND open access[filter]
+  retmax: 200                     # ~200 articles -> well over 100 figures
+
+quality:
+  drop_not_nf_relevant: true      # <-- keep ONLY NF-relevant figures
+  min_caption_length: 20
+  require_license: true
+
+output_dir: nf_output
+cache_dir: nf_cache

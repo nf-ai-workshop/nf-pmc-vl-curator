@@ -19,8 +19,18 @@ htmlcov/
 /output/
 /cache/
 /dataset/
+# named run dirs from config/nf_high_relevance.yaml (and similar custom runs)
+/nf_output/
+/nf_cache/
+/nf_dataset/
 *.jsonl
 !data/**/*.jsonl
+
+# Local credentials — copy config/secrets.example.yaml to config/secrets.yaml,
+# fill in your real key; the real copy is never committed.
+/config/secrets.yaml
+/config/*.local.yaml
+*.secret.yaml
 
 # OS / editor
 .DS_Store
