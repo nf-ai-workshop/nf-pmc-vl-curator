@@ -84,6 +84,7 @@ provide, proxy/firewall notes, and the 2026 NCBI dataset-migration caveat.
 uv run nf-curator run        # run the pipeline (networked, or --dry-run / --xml for offline)
 uv run nf-curator doctor     # diagnose live connectivity incl. image download
 uv run nf-curator materialize  # package dataset.jsonl into an imagefolder (images/ + metadata.jsonl)
+uv run nf-curator gallery    # build a static HTML gallery to browse the dataset/ folder
 uv run nf-curator app        # launch the interactive curation web app (see below)
 uv run nf-curator inspect    # summarise an exported dataset.jsonl
 uv run nf-curator extract    # parse one JATS XML file and list its figures

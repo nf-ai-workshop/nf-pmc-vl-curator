@@ -290,6 +290,34 @@ def materialize(dataset, output_dir, accepted_only, image_format, image_root):
 
 
 @cli.command()
+@click.argument("dataset_dir", required=False, default=Path("dataset"),
+                type=click.Path(path_type=Path))
+@click.option("--output", "output_path", type=click.Path(path_type=Path),
+              default=None, help="HTML output path (default: <dataset_dir>/gallery.html).")
+@click.option("--open", "open_browser", is_flag=True,
+              help="Open the gallery in your browser after building it.")
+def gallery(dataset_dir, output_path, open_browser):
+    """Build a self-contained HTML gallery for a materialized dataset folder.
+
+    Reads <dataset_dir>/metadata.jsonl and writes a static gallery.html that
+    shows every figure with its caption + labels, with in-browser filtering and
+    a click-to-enlarge view. Opens with a double-click — no server, no install.
+    """
+    from .gallery import build_gallery
+
+    try:
+        out = build_gallery(dataset_dir, output_path)
+    except FileNotFoundError as exc:
+        raise click.ClickException(str(exc)) from exc
+    click.echo(f"Gallery written to {out}")
+    click.echo(f"Open it in a browser:  file://{out.resolve()}")
+    if open_browser:
+        import webbrowser
+
+        webbrowser.open(f"file://{out.resolve()}")
+
+
+@cli.command()
 @click.argument("dataset", type=click.Path(exists=True, path_type=Path))
 def inspect(dataset: Path) -> None:
     """Print summary stats for an exported dataset.jsonl."""
